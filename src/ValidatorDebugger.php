@@ -15,6 +15,7 @@ namespace Ixnode\PhpJsonSchemaValidator;
 
 use Ixnode\PhpContainer\File;
 use Ixnode\PhpContainer\Json;
+use Ixnode\PhpException\File\FileNotFoundException;
 use Ixnode\PhpException\Function\FunctionJsonEncodeException;
 use Ixnode\PhpException\Type\TypeInvalidException;
 use JsonException;
@@ -56,6 +57,7 @@ class ValidatorDebugger
      * @throws JsonException
      * @throws FunctionJsonEncodeException
      * @throws TypeInvalidException
+     * @throws FileNotFoundException
      */
     public function validate(): bool
     {

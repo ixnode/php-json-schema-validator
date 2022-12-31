@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpJsonSchemaValidator;
 
+use Composer\Autoload\ClassLoader;
 use Exception;
 use Ixnode\PhpChecker\CheckerClass;
 use Ixnode\PhpContainer\File;
 use Ixnode\PhpContainer\Json;
+use Ixnode\PhpException\File\FileNotFoundException;
 use Ixnode\PhpException\Function\FunctionJsonEncodeException;
 use Ixnode\PhpException\Type\TypeInvalidException;
 use JsonException;
@@ -25,6 +27,7 @@ use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\Exceptions\InvalidKeywordException;
 use Opis\JsonSchema\Resolvers\SchemaResolver;
 use Opis\JsonSchema\Validator as OpisJsonSchemaValidator;
+use ReflectionClass;
 use stdClass;
 
 /**
@@ -49,10 +52,33 @@ class Validator
      *
      * @param File|Json $data
      * @param File|Json $schema
-     * @param string|null $pathRoot
+     * @param string|null $directoryRoot
      */
-    public function __construct(protected File|Json $data, protected File|Json $schema, protected ?string $pathRoot = null)
+    public function __construct(protected File|Json $data, protected File|Json $schema, protected ?string $directoryRoot = null)
     {
+    }
+
+    /**
+     * Returns the root directory of this project.
+     *
+     * @return string
+     * @throws FileNotFoundException
+     */
+    private function getDirectoryRoot(): string
+    {
+        if (!is_null($this->directoryRoot)) {
+            return $this->directoryRoot;
+        }
+
+        $reflection = new ReflectionClass(ClassLoader::class);
+
+        $fileName = $reflection->getFileName();
+
+        if ($fileName === false) {
+            throw new FileNotFoundException('reflection-class');
+        }
+
+        return dirname($fileName, 3);
     }
 
     /**
@@ -99,6 +125,7 @@ class Validator
      * Validates the given JSON files.
      *
      * @return bool
+     * @throws FileNotFoundException
      * @throws FunctionJsonEncodeException
      * @throws JsonException
      * @throws TypeInvalidException
@@ -122,7 +149,7 @@ class Validator
             $this->schema instanceof Json => $resolver->registerRaw($this->schema->getJsonStringFormatted(), Constants::ID_JSON_SCHEMA_GENERAL)
         };
 
-        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->pathRoot))->getPathReal());
+        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->getDirectoryRoot()))->getPathReal());
 
         $data = match (true) {
             $this->data instanceof File => $this->getJsonDecoded($this->data->getContentAsJson()->getJsonStringFormatted()),

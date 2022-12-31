@@ -15,6 +15,7 @@ namespace Ixnode\PhpJsonSchemaValidator\Tests\Unit;
 
 use Ixnode\PhpContainer\File;
 use Ixnode\PhpContainer\Json;
+use Ixnode\PhpException\File\FileNotFoundException;
 use Ixnode\PhpException\Function\FunctionJsonEncodeException;
 use Ixnode\PhpException\Type\TypeInvalidException;
 use Ixnode\PhpJsonSchemaValidator\Constants;
@@ -47,6 +48,7 @@ final class ValidatorTest extends TestCase
      * @throws FunctionJsonEncodeException
      * @throws TypeInvalidException
      * @throws JsonException
+     * @throws FileNotFoundException
      */
     public function wrapperGet(int $number, Json|File $data, Json|File $schema, bool $expected, array $expectedError): void
     {
