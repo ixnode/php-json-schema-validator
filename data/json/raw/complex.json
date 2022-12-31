@@ -1,0 +1,126 @@
+{
+    "$schema": "../schema/complex.json",
+    "description": "This schema document describes the API endpoint '/api/v1/form/'.",
+    "version": "1.0.0",
+    "type": "apiEndpoint",
+    "forms": [
+        {
+            "customer-type": "private",
+            "product-type": "power",
+            "name": "00001",
+            "type": "form",
+            "action": "/api/v1/form/323/00001",
+            "request": "POST",
+            "order": [
+                "deliveryZipCode",
+                "operator",
+                "button"
+            ],
+            "content": {
+                "deliveryZipCode": {
+                    "order": 0,
+                    "group": "Form1",
+                    "name": "deliveryZipCode",
+                    "caption": "<translate>",
+                    "description": null,
+                    "event": "input",
+                    "field": "text",
+                    "schema": {
+                        "type": "string",
+                        "pattern": "^[0-9]{5}$",
+                        "minLength": 5,
+                        "maxLength": 5
+                    },
+                    "dependencies": null,
+                    "method": "checkZipCode()",
+                    "required": true,
+                    "readonly": false,
+                    "default": {
+                        "value": null
+                    },
+                    "current": {
+                        "value": null
+                    },
+                    "unit": null
+                },
+                "operator": {
+                    "order": 1,
+                    "group": "Form1",
+                    "name": "operator",
+                    "caption": "<translate>",
+                    "description": null,
+                    "event": "input",
+                    "field": "select",
+                    "schema": {
+                        "type": "string",
+                        "pattern": "^[0-9]{13}$"
+                    },
+                    "dependencies": null,
+                    "required": true,
+                    "readonly": false,
+                    "default": {
+                        "value": null
+                    },
+                    "current": {
+                        "value": null
+                    },
+                    "unit": null
+                },
+                "button": {
+                    "order": 2,
+                    "group": "Form1",
+                    "name": "button",
+                    "caption": "<translate>",
+                    "description": null,
+                    "event": "submit",
+                    "field": "button",
+                    "schema": {
+                        "type": "integer",
+                        "enum": [
+                            1
+                        ]
+                    },
+                    "dependencies": null,
+                    "required": true,
+                    "readonly": false,
+                    "default": {
+                        "value": 1
+                    },
+                    "current": {
+                        "value": 1
+                    },
+                    "unit": null
+                }
+            },
+            "schema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "description": "Used for validation of data/json/raw/complex.json JSON file.",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "deliveryZipCode": {
+                        "type": "string",
+                        "pattern": "^[0-9]{5}$",
+                        "minLength": 5,
+                        "maxLength": 5
+                    },
+                    "operator": {
+                        "type": "string",
+                        "pattern": "^[0-9]{13}$"
+                    },
+                    "button": {
+                        "type": "integer",
+                        "enum": [
+                            1
+                        ]
+                    }
+                },
+                "required": [
+                    "deliveryZipCode",
+                    "operator",
+                    "button"
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "$schema": "../schema/simple.json",
+    "name": "twelvepics-com/php-holiday-db",
+    "description": "Provides an API for holidays.",
+    "version": "0.1.0",
+    "date": "Friday, December 30, 2022 - 10:45:29",
+    "license": "Copyright (c) 2022 Björn Hempel",
+    "authors": [
+        "Björn Hempel <bjoern@hempel.li>"
+    ],
+    "php-version": "8.1.13",
+    "symfony-version": "6.2.1"
+}
