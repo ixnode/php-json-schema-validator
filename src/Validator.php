@@ -62,23 +62,14 @@ class Validator
      * Returns the root directory of this project.
      *
      * @return string
-     * @throws FileNotFoundException
      */
     private function getDirectoryRoot(): string
     {
-        if (!is_null($this->directoryRoot)) {
-            return $this->directoryRoot;
+        if (is_null($this->directoryRoot)) {
+            $this->directoryRoot = dirname(__FILE__, 2);
         }
 
-        $reflection = new ReflectionClass(ClassLoader::class);
-
-        $fileName = $reflection->getFileName();
-
-        if ($fileName === false) {
-            throw new FileNotFoundException('reflection-class');
-        }
-
-        return dirname($fileName, 3);
+        return $this->directoryRoot;
     }
 
     /**
