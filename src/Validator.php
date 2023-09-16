@@ -123,7 +123,7 @@ class Validator
             $this->schema instanceof Json => $resolver->registerRaw($this->schema->getJsonStringFormatted(), Constants::ID_JSON_SCHEMA_GENERAL)
         };
 
-        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->pathRoot))->getPathReal());
+        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->pathRoot ?: $this->getRootPath()))->getPathReal());
 
         $data = match (true) {
             $this->data instanceof File => $this->getJsonDecoded($this->data->getContentAsJson()->getJsonStringFormatted()),
@@ -230,5 +230,15 @@ class Validator
     public function getStatusJson(): string
     {
         return (new Json($this->getStatusArray()))->getJsonStringFormatted();
+    }
+
+    /**
+     * Returns the root path of this class.
+     *
+     * @return string
+     */
+    private function getRootPath(): string
+    {
+        return dirname(__FILE__, 2);
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "004230e93a54ca70233fcc5cce98fbab",
+    "content-hash": "9f79394929b3ebd7d6b871443116e43f",
     "packages": [
         {
             "name": "ixnode/php-checker",
@@ -4700,7 +4700,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
