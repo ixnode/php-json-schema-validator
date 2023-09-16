@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the ixno/php-json-schema-validator project.
  *
@@ -11,9 +9,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Ixnode\PhpJsonSchemaValidator;
 
-use Composer\Autoload\ClassLoader;
 use Exception;
 use Ixnode\PhpChecker\CheckerClass;
 use Ixnode\PhpContainer\File;
@@ -22,12 +21,12 @@ use Ixnode\PhpException\File\FileNotFoundException;
 use Ixnode\PhpException\Function\FunctionJsonEncodeException;
 use Ixnode\PhpException\Type\TypeInvalidException;
 use JsonException;
+use LogicException;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\Exceptions\InvalidKeywordException;
 use Opis\JsonSchema\Resolvers\SchemaResolver;
 use Opis\JsonSchema\Validator as OpisJsonSchemaValidator;
-use ReflectionClass;
 use stdClass;
 
 /**
@@ -40,44 +39,28 @@ use stdClass;
  */
 class Validator
 {
-    /** @var array<int|string, mixed> $lastErrors */
-    protected array $lastErrors = [];
+    /** @var ValidationError|array<int|string, string>|null $lastErrors */
+    protected ValidationError|array|null $lastErrors = null;
 
     protected bool $isValidated = false;
 
     protected const CONST_MAX_ERRORS = 9999;
 
     /**
-     * Validator constructor.
-     *
      * @param File|Json $data
      * @param File|Json $schema
-     * @param string|null $directoryRoot
+     * @param string|null $pathRoot
      */
-    public function __construct(protected File|Json $data, protected File|Json $schema, protected ?string $directoryRoot = null)
+    public function __construct(protected File|Json $data, protected File|Json $schema, protected ?string $pathRoot = null)
     {
-    }
-
-    /**
-     * Returns the root directory of this project.
-     *
-     * @return string
-     */
-    private function getDirectoryRoot(): string
-    {
-        if (is_null($this->directoryRoot)) {
-            $this->directoryRoot = dirname(__FILE__, 2);
-        }
-
-        return $this->directoryRoot;
     }
 
     /**
      * Returns the data as JSON representation.
      *
      * @return Json
-     * @throws JsonException
      * @throws FunctionJsonEncodeException
+     * @throws JsonException
      * @throws TypeInvalidException
      */
     public function getDataAsJson(): Json
@@ -89,7 +72,7 @@ class Validator
     }
 
     /**
-     * Returns the given schema.
+     * Returns the
      *
      * @return File|Json
      */
@@ -103,7 +86,8 @@ class Validator
      *
      * @param string $json
      * @return stdClass
-     * @throws Exception
+     * @throws TypeInvalidException
+     * @throws JsonException
      */
     protected function getJsonDecoded(string $json): stdClass
     {
@@ -120,7 +104,6 @@ class Validator
      * @throws FunctionJsonEncodeException
      * @throws JsonException
      * @throws TypeInvalidException
-     * @throws Exception
      */
     public function validate(): bool
     {
@@ -132,7 +115,7 @@ class Validator
         $resolver = $validator->resolver();
 
         if (!$resolver instanceof SchemaResolver) {
-            throw new Exception(sprintf('Unable to get SchemaResolver (%s:%d).', __FILE__, __LINE__));
+            throw new LogicException(sprintf('Unable to get SchemaResolver (%s:%d).', __FILE__, __LINE__));
         }
 
         match (true) {
@@ -140,7 +123,7 @@ class Validator
             $this->schema instanceof Json => $resolver->registerRaw($this->schema->getJsonStringFormatted(), Constants::ID_JSON_SCHEMA_GENERAL)
         };
 
-        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->getDirectoryRoot()))->getPathReal());
+        $resolver->registerFile(Constants::URL_JSON_SCHEMA_DRAFT_07, (new File(Constants::PATH_SCHEMA_DRAFT_07, $this->pathRoot))->getPathReal());
 
         $data = match (true) {
             $this->data instanceof File => $this->getJsonDecoded($this->data->getContentAsJson()->getJsonStringFormatted()),
@@ -161,38 +144,28 @@ class Validator
             return true;
         }
 
-        $this->setLastErrors($result->error());
-
+        $this->lastErrors = $result->error();
         return false;
-    }
-
-    /**
-     * Sets last errors.
-     *
-     * @param ValidationError|null $validationError
-     * @return void
-     */
-    public function setLastErrors(?ValidationError $validationError): void
-    {
-        $this->lastErrors = [];
-
-        if (is_null($validationError)) {
-            return;
-        }
-
-        $formatter = new ErrorFormatter();
-
-        $this->lastErrors = $formatter->format($validationError, false);
     }
 
     /**
      * Get last errors as array.
      *
-     * @return array<int|string, mixed>
+     * @return array<int|string, string>
      */
-    public function getLastErrors(): array
+    public function getLastErrorsArray(): array
     {
-        return $this->lastErrors;
+        if (is_null($this->lastErrors)) {
+            return [];
+        }
+
+        if (is_array($this->lastErrors)) {
+            return $this->lastErrors;
+        }
+
+        $formatter = new ErrorFormatter();
+
+        return $formatter->format($this->lastErrors, false);
     }
 
     /**
@@ -204,7 +177,7 @@ class Validator
     {
         $errors = [];
 
-        foreach ($this->getLastErrors() as $name => $value) {
+        foreach ($this->getLastErrorsArray() as $name => $value) {
             $errors[] = sprintf('%-12s %s', strval($name).':', strval($value));
         }
 
@@ -219,7 +192,7 @@ class Validator
      */
     public function getLastErrorsJson(): string
     {
-        return (new Json($this->getLastErrors()))->getJsonStringFormatted();
+        return (new Json($this->getLastErrorsArray()))->getJsonStringFormatted();
     }
 
     /**
@@ -234,7 +207,7 @@ class Validator
             throw new Exception(sprintf('Please execute the validate method before (%s:%d).', __FILE__, __LINE__));
         }
 
-        if (count($this->lastErrors) <= 0) {
+        if (is_null($this->lastErrors)) {
             return [
                 'valid' => true,
                 'message' => 'The supplied JSON validates against the schema.',
@@ -244,7 +217,7 @@ class Validator
         return [
             'valid' => false,
             'message' => 'The supplied JSON does not validate against the schema.',
-            'error' => $this->getLastErrors()
+            'error' => $this->getLastErrorsArray()
         ];
     }
 

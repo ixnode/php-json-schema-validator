@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the ixno/php-json-schema-validator project.
  *
@@ -11,11 +9,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Ixnode\PhpJsonSchemaValidator\Tests\Unit;
 
 use Ixnode\PhpContainer\File;
 use Ixnode\PhpContainer\Json;
 use Ixnode\PhpException\File\FileNotFoundException;
+use Ixnode\PhpException\File\FileNotReadableException;
 use Ixnode\PhpException\Function\FunctionJsonEncodeException;
 use Ixnode\PhpException\Type\TypeInvalidException;
 use Ixnode\PhpJsonSchemaValidator\Constants;
@@ -50,7 +51,7 @@ final class ValidatorTest extends TestCase
      * @throws JsonException
      * @throws FileNotFoundException
      */
-    public function wrapperGet(int $number, Json|File $data, Json|File $schema, bool $expected, array $expectedError): void
+    public function wrapper(int $number, Json|File $data, Json|File $schema, bool $expected, array $expectedError): void
     {
         /* Arrange */
         $validator = new Validator($data, $schema);
@@ -61,16 +62,18 @@ final class ValidatorTest extends TestCase
         /* Assert */
         $this->assertIsNumeric($number); // To avoid phpmd warning.
         $this->assertEquals($expected, $valid);
-        $this->assertEquals($expectedError, $validator->getLastErrors());
+        $this->assertEquals($expectedError, $validator->getLastErrorsArray());
     }
 
     /**
      * Data provider (Json::isJson).
      *
      * @return array<int, array{int, Json|File, Json|File, bool, array<int|string, mixed>}>
+     * @throws FileNotFoundException
      * @throws FunctionJsonEncodeException
      * @throws JsonException
      * @throws TypeInvalidException
+     * @throws FileNotReadableException
      */
     public function dataProviderIsJson(): array
     {

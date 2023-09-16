@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the ixno/php-json-schema-validator project.
  *
@@ -10,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Ixnode\PhpJsonSchemaValidator;
 
@@ -22,23 +22,23 @@ namespace Ixnode\PhpJsonSchemaValidator;
  */
 class Constants
 {
-    public const PATH_SCHEMA_DRAFT_07 = 'data/json/schema/draft-07.json';
+    final public const PATH_SCHEMA_DRAFT_07 = 'data/json/schema/draft-07.json';
 
-    public const PATH_SCHEMA_SIMPLE = 'data/json/schema/simple.json';
+    final public const PATH_SCHEMA_SIMPLE = 'data/json/schema/simple.json';
 
-    public const PATH_SCHEMA_COMPLEX = 'data/json/schema/complex.json';
-
-
-    public const PATH_DATA_SIMPLE = 'data/json/raw/simple.json';
-
-    public const PATH_DATA_COMPLEX = 'data/json/raw/complex.json';
+    final public const PATH_SCHEMA_COMPLEX = 'data/json/schema/complex.json';
 
 
-    public const URL_JSON_SCHEMA_DRAFT_07 = 'http://json-schema.org/draft-07/schema#';
+    final public const PATH_DATA_SIMPLE = 'data/json/raw/simple.json';
 
-    public const ID_JSON_SCHEMA_GENERAL = 'http://api.example.tld/schema.json';
+    final public const PATH_DATA_COMPLEX = 'data/json/raw/complex.json';
 
-    public const SCHEMA_SIMPLE_OBJECT = [
+
+    final public const URL_JSON_SCHEMA_DRAFT_07 = 'http://json-schema.org/draft-07/schema#';
+
+    final public const ID_JSON_SCHEMA_GENERAL = 'http://api.example.tld/schema.json';
+
+    final public const SCHEMA_SIMPLE_OBJECT = [
         "type" => "object"
     ];
 }
