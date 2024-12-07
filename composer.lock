@@ -4,8 +4,81 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f79394929b3ebd7d6b871443116e43f",
+    "content-hash": "3417d2c0967b36a3f1bef8279e712320",
     "packages": [
+        {
+            "name": "adhocore/cli",
+            "version": "v1.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adhocore/php-cli.git",
+                "reference": "86be16e3c3b42d76fcdb32529bcded0fedb925d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adhocore/php-cli/zipball/86be16e3c3b42d76fcdb32529bcded0fedb925d3",
+                "reference": "86be16e3c3b42d76fcdb32529bcded0fedb925d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Ahc\\Cli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jitendra Adhikari",
+                    "email": "jiten.adhikary@gmail.com"
+                }
+            ],
+            "description": "Command line interface library for PHP",
+            "keywords": [
+                "argument-parser",
+                "argv-parser",
+                "cli",
+                "cli-action",
+                "cli-app",
+                "cli-color",
+                "cli-option",
+                "cli-writer",
+                "command",
+                "console",
+                "console-app",
+                "php-cli",
+                "php8",
+                "stream-input",
+                "stream-output"
+            ],
+            "support": {
+                "issues": "https://github.com/adhocore/php-cli/issues",
+                "source": "https://github.com/adhocore/php-cli/tree/v1.9.3"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/ji10",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/adhocore",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-04T03:40:29+00:00"
+        },
         {
             "name": "ixnode/php-checker",
             "version": "0.1.9",
@@ -65,23 +138,97 @@
             "time": "2023-06-25T09:31:49+00:00"
         },
         {
-            "name": "ixnode/php-container",
-            "version": "0.1.10",
+            "name": "ixnode/php-cli-image",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ixnode/php-container.git",
-                "reference": "5dcbc5e643758abd87315d44af11354bbf11745e"
+                "url": "https://github.com/ixnode/php-cli-image.git",
+                "reference": "32a6b8301d166806e4a657bbace44e4eedf13d78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ixnode/php-container/zipball/5dcbc5e643758abd87315d44af11354bbf11745e",
-                "reference": "5dcbc5e643758abd87315d44af11354bbf11745e",
+                "url": "https://api.github.com/repos/ixnode/php-cli-image/zipball/32a6b8301d166806e4a657bbace44e4eedf13d78",
+                "reference": "32a6b8301d166806e4a657bbace44e4eedf13d78",
+                "shasum": ""
+            },
+            "require": {
+                "adhocore/cli": "^v1.0.0",
+                "ext-curl": "*",
+                "ext-gd": "*",
+                "ext-imagick": "*",
+                "ixnode/php-coordinate": "^1.0",
+                "ixnode/php-exception": "^0.1.21",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.13",
+                "ixnode/bash-version-manager": "^0.1.3",
+                "jetbrains/phpstorm-attributes": "^1.0",
+                "phpmd/phpmd": "^2.13",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5",
+                "povils/phpmnd": "^3.0",
+                "rector/rector": "^0.15.1"
+            },
+            "bin": [
+                "bin/php-cli-image"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ixnode\\PhpCliImage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Björn Hempel",
+                    "email": "bjoern@hempel.li",
+                    "homepage": "https://www.hempel.li/"
+                }
+            ],
+            "description": "PHP Cli Image - This library converts a given image to ASCII string.",
+            "keywords": [
+                "ascii",
+                "cli",
+                "gif",
+                "image",
+                "jpeg",
+                "jpg",
+                "php",
+                "png"
+            ],
+            "support": {
+                "issues": "https://github.com/ixnode/php-cli-image/issues",
+                "source": "https://github.com/ixnode/php-cli-image/tree/1.0.2"
+            },
+            "time": "2024-12-07T11:51:55+00:00"
+        },
+        {
+            "name": "ixnode/php-container",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixnode/php-container.git",
+                "reference": "d49524b6519e9de8052d99f9248293853b1b540f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixnode/php-container/zipball/d49524b6519e9de8052d99f9248293853b1b540f",
+                "reference": "d49524b6519e9de8052d99f9248293853b1b540f",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
+                "ext-exif": "*",
+                "ext-gd": "*",
                 "ixnode/php-checker": "^0.1.8",
-                "ixnode/php-exception": "^0.1.19",
+                "ixnode/php-coordinate": "^1.0",
+                "ixnode/php-exception": "^0.1.22",
+                "ixnode/php-naming-conventions": "^0.1.1",
                 "ixnode/php-size-byte": "^0.1.2",
                 "php": "^8.0"
             },
@@ -124,22 +271,89 @@
             ],
             "support": {
                 "issues": "https://github.com/ixnode/php-container/issues",
-                "source": "https://github.com/ixnode/php-container/tree/0.1.10"
+                "source": "https://github.com/ixnode/php-container/tree/1.0.1"
             },
-            "time": "2023-08-14T15:20:57+00:00"
+            "time": "2024-12-07T21:52:39+00:00"
         },
         {
-            "name": "ixnode/php-exception",
-            "version": "0.1.21",
+            "name": "ixnode/php-coordinate",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ixnode/php-exception.git",
-                "reference": "0c82481422f56005a14d965c1b6884ad7c37ae0c"
+                "url": "https://github.com/ixnode/php-coordinate.git",
+                "reference": "c6d91e1353e742cf9e8769980ae445b1bc57223d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ixnode/php-exception/zipball/0c82481422f56005a14d965c1b6884ad7c37ae0c",
-                "reference": "0c82481422f56005a14d965c1b6884ad7c37ae0c",
+                "url": "https://api.github.com/repos/ixnode/php-coordinate/zipball/c6d91e1353e742cf9e8769980ae445b1bc57223d",
+                "reference": "c6d91e1353e742cf9e8769980ae445b1bc57223d",
+                "shasum": ""
+            },
+            "require": {
+                "adhocore/cli": "^v1.0.0",
+                "ext-curl": "*",
+                "ext-gd": "*",
+                "ixnode/php-cli-image": "^1.0",
+                "ixnode/php-exception": "^0.1.21",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.13",
+                "ixnode/bash-version-manager": "^0.1.3",
+                "jetbrains/phpstorm-attributes": "^1.0",
+                "phpmd/phpmd": "^2.13",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5",
+                "povils/phpmnd": "^3.0",
+                "rector/rector": "^0.15.1"
+            },
+            "bin": [
+                "bin/php-coordinate"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ixnode\\PhpCoordinate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Björn Hempel",
+                    "email": "bjoern@hempel.li",
+                    "homepage": "https://www.hempel.li/"
+                }
+            ],
+            "description": "PHP Coordinate - This library offers a collection of various PHP coordinate classes like Coordinate, etc.",
+            "keywords": [
+                "conversion",
+                "coordinate",
+                "latitude",
+                "longitude",
+                "parser",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/ixnode/php-coordinate/issues",
+                "source": "https://github.com/ixnode/php-coordinate/tree/1.0.1"
+            },
+            "time": "2024-12-07T11:56:05+00:00"
+        },
+        {
+            "name": "ixnode/php-exception",
+            "version": "0.1.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixnode/php-exception.git",
+                "reference": "5f452f23af773bedff1c9d46815976f9087d0c56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixnode/php-exception/zipball/5f452f23af773bedff1c9d46815976f9087d0c56",
+                "reference": "5f452f23af773bedff1c9d46815976f9087d0c56",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +361,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.13",
-                "ixnode/bash-version-manager": "^0.1.3",
+                "ixnode/bash-version-manager": "0.1.9",
                 "jetbrains/phpstorm-attributes": "^1.0",
                 "phpmd/phpmd": "^2.13",
                 "phpstan/phpstan": "^1.9",
@@ -185,9 +399,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ixnode/php-exception/issues",
-                "source": "https://github.com/ixnode/php-exception/tree/0.1.21"
+                "source": "https://github.com/ixnode/php-exception/tree/0.1.22"
             },
-            "time": "2023-07-03T21:13:30+00:00"
+            "time": "2024-12-07T21:25:46+00:00"
         },
         {
             "name": "ixnode/php-naming-conventions",
@@ -881,22 +1095,22 @@
         },
         {
             "name": "ixnode/bash-version-manager",
-            "version": "0.1.8",
+            "version": "0.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ixnode/bash-version-manager.git",
-                "reference": "f641482b6e828d0748f986d0e15bfc4cd87ead69"
+                "reference": "d080c05c7444fbca08a9410f60639827e151f5a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ixnode/bash-version-manager/zipball/f641482b6e828d0748f986d0e15bfc4cd87ead69",
-                "reference": "f641482b6e828d0748f986d0e15bfc4cd87ead69",
+                "url": "https://api.github.com/repos/ixnode/bash-version-manager/zipball/d080c05c7444fbca08a9410f60639827e151f5a5",
+                "reference": "d080c05c7444fbca08a9410f60639827e151f5a5",
                 "shasum": ""
             },
             "require": {
                 "ixnode/php-checker": "^0.1.9",
-                "ixnode/php-container": "^0.1.8",
-                "ixnode/php-exception": "^0.1.19",
+                "ixnode/php-container": "^1.0.0",
+                "ixnode/php-exception": "^0.1.21",
                 "php": "^8.0"
             },
             "require-dev": {
@@ -932,9 +1146,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ixnode/bash-version-manager/issues",
-                "source": "https://github.com/ixnode/bash-version-manager/tree/0.1.8"
+                "source": "https://github.com/ixnode/bash-version-manager/tree/0.1.10"
             },
-            "time": "2023-08-14T20:09:22+00:00"
+            "time": "2024-12-07T21:49:00+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4696,12 +4910,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
