@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.5] - 2024-12-07
+
+*  Update ixnode packages
+
 ### [0.1.4] - 2023-09-16
 
 * Add root path to Validator, to be able to use the draft-07.json from package

@@ -1,6 +1,7 @@
 {
   "name": "ixnode/php-json-schema-validator",
   "description": "An easy-to-use PHP Json Schema Validator.",
+  "version": "0.1.5",
   "type": "library",
   "license": "MIT",
   "keywords": ["php", "json", "schema", "validator"],
